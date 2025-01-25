@@ -1,15 +1,21 @@
 # OJN-EPV Benchmark
 
-This repository hosts the **OJN-EPV benchmark**, the first publicly available benchmark specifically designed for evaluating the pass component of Expected Possession Value (EPV) models in football. The benchmark focuses solely on pass scenarios and provides pairs of game states with human-assigned relative EPV judgments to assess the quality and accuracy of EPV models in evaluating pass value.
+This repository hosts the **OJN-EPV benchmark**, the first publicly available benchmark specifically designed for evaluating the pass component of Expected Possession Value (EPV) models in football. In its current version, the benchmark focuses on modified pass scenarios and provides pairs of game states with human-assigned relative EPV judgments.
 
-## Benchmark Overview
+## Current Benchmark Scope
 
-The OJN-EPV benchmark consists of two types of pass-specific game state pairs:
+The current version of the OJN-EPV benchmark (located in the `OJN-Pass-EPV-benchmark` folder) focuses on:
 
-1.  **Modified pass states**: Real game states with altered aspects relevant to passing (e.g., player positions, player velocities) to evaluate a model's sensitivity to changes in pass scenarios.
-2.  **Comparative pass states**: Pairs of similar real game states with subtle differences in pass-related features to assess a model's ability to discern which state offers a higher EPV for the pass.
+- **Modified pass states**: Real game states with altered aspects relevant to passing (e.g., player positions, player velocities) to evaluate a model's sensitivity to changes in pass scenarios.
 
 The benchmark focuses on relative EPV differences rather than absolute EPVs, as relative judgments are generally less debatable and provide a clearer measure of a model's ability to assess pass quality.
+
+## Future Extensions
+
+We plan to expand this benchmark to include:
+
+1. **Additional action types**: Expanding beyond passing to evaluate other on-ball actions like dribbling and shooting.
+2. **More complex scenarios**: Including multi-action sequences and strategic decision-making situations.
 
 ## Data Source
 
@@ -28,12 +34,12 @@ The data includes a tracking snapshot for player and ball positions, as well as 
 
 ## Benchmark Usage
 
-To evaluate the pass component of an EPV model using the OJN-EPV benchmark:
+To evaluate the pass component of an EPV model using the current OJN-EPV benchmark:
 
-1.  Obtain the pass-specific game state pairs and their corresponding relative EPV assignments from the repository.
-2.  Compute the EPV for each game state in a pair using your EPV model, focusing on the pass evaluation component.
-3.  Compare the model's predicted relative EPV with the expert-assigned relative EPV for the pass.
-4.  Aggregate the results across all game state pairs to assess the model's overall performance in evaluating pass value.
+1. Access the modified pass states in the `OJN-Pass-EPV-benchmark` folder.
+2. Compute the EPV for each modified game state pair using your EPV model.
+3. Compare the model's predicted relative EPV with the expert-assigned relative EPV.
+4. Aggregate the results to assess the model's performance in evaluating pass value.
 
 ## Contribution and Feedback
 
