@@ -21,23 +21,20 @@ We plan to expand this benchmark to include:
 
 The benchmark was created using pass-specific data from various matches in our database.
 
-**Important**: The data for the benchmark are from matches that were not in either train, validation, or test sets to ensure an unbiased evaluation.
-
-The data includes a tracking snapshot for player and ball positions, as well as player velocities.
+**Important**: The data for the benchmark are from matches that were not in either train, validation, or test sets to ensure an unbiased evaluation. The data includes a tracking snapshot for player and ball positions, as well as player velocities. **All x coordinates range from -52.5 to 52.5, and all y coordinates range from -34 to 34.** The ball is annotated as 0 in both the team and player columns. `playing_direction_event` is `True` when the event took place from left to right, otherwise `False`.
 
 ## Benchmark Creation Process
 
-1.  **Pass-specific state selection**: Game states involving pass events were selected from our database, ensuring they were not included in the training, validation, or test sets used for model development.
-2.  **Pass state modification**: Modified pass states were created by realistically altering aspects of real game states relevant to passing, such as player positions and player velocities.
-3.  **Comparative pass state selection**: Pairs of similar game states with subtle differences in pass-related features were selected.
-4.  **Expert input**: Football experts with expertise in pass evaluation provided relative EPV assignments for each pass-specific game state pair.
+1. **Pass-specific state selection**: Game states involving pass events were selected from our database, ensuring they were not included in the training, validation, or test sets used for model development.
+2. **Pass state modification**: Modified pass states were created by realistically altering aspects of real game states relevant to passing, such as player positions and player velocities.
+3. **Expert input**: Football experts with expertise in pass evaluation provided relative EPV assignments for each pass-specific game state pair.
 
 ## Benchmark Usage
 
 To evaluate the pass component of an EPV model using the current OJN-EPV benchmark:
 
 1. Access the modified pass states in the `OJN-Pass-EPV-benchmark` folder.
-2. Compute the EPV for each modified game state pair using your EPV model.
+2. Compute the EPV for each game state pair using your EPV model.
 3. Compare the model's predicted relative EPV with the expert-assigned relative EPV.
 4. Aggregate the results to assess the model's performance in evaluating pass value.
 
