@@ -1,0 +1,44 @@
+# Agent instruction files stay simple: every AGENTS.md (and any CLAUDE.md variant) has at most 150 lines.
+# Detail belongs in docs the file links to. Runs only when one of these files changes, so it costs no Actions
+# minutes otherwise.
+name: Agent instructions
+
+on:
+  push:
+    branches: [main, master]
+    paths:
+      - "**/AGENTS.md"
+      - "**/AGENTS.override.md"
+      - "**/CLAUDE.md"
+      - "**/CLAUDE.local.md"
+      - .github/workflows/agent-instructions.yml
+  pull_request:
+    paths:
+      - "**/AGENTS.md"
+      - "**/AGENTS.override.md"
+      - "**/CLAUDE.md"
+      - "**/CLAUDE.local.md"
+      - .github/workflows/agent-instructions.yml
+
+permissions:
+  contents: read
+
+jobs:
+  line-limit:
+    runs-on: ubuntu-latest
+    timeout-minutes: 2
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+      - name: Every agent instruction file has at most 150 lines
+        shell: bash
+        run: |
+          status=0
+          while IFS= read -r -d '' file; do
+            lines=$(awk 'END { print NR }' "$file")
+            if [ "$lines" -gt 150 ]; then
+              echo "::error file=$file::$file has $lines lines; the limit is 150. Move detail to docs."
+              status=1
+            fi
+          done < <(git ls-files -z -- ':(glob)**/AGENTS.md' ':(glob)**/AGENTS.override.md' \
+            ':(glob)**/CLAUDE.md' ':(glob)**/CLAUDE.local.md')
+          exit "$status"
